@@ -1,0 +1,16 @@
+- name: Docker installation
+  pacman:
+    name: docker
+    state: latest
+
+- name: Docker user
+  user:
+    name: docker
+    group: docker
+    state: present
+
+- name: Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes

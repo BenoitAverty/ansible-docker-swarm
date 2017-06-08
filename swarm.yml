@@ -1,0 +1,21 @@
+- hosts: all
+  remote_user: "admin"
+  become: yes
+  become_method: sudo
+  roles:
+  - role: docker
+
+- hosts: manager
+  remote_user: "admin"
+  become: yes
+  become_method: sudo
+  become_user: docker
+  roles:
+    - role: swarm-master
+
+- hosts: nodes
+  remote_user: "admin"
+  become: yes
+  become_method: sudo
+  roles:
+    - role: swarm-node
