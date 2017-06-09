@@ -2,6 +2,7 @@
   shell: >
     docker info | egrep '^Swarm: ' | cut -d ' ' -f2
   register: swarm_status
+  changed_when: false
 
 - name: Swarm master
   command: "docker swarm init --advertise-addr {{ansible_default_ipv4.address}}"
@@ -10,5 +11,6 @@
 - name: Swarm token
   command: "docker swarm join-token -q worker"
   register: swarm_token
+  changed_when: false
 
 - set_fact: swarmtoken="{{swarm_token.stdout}}"

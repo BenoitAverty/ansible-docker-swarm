@@ -1,0 +1,5 @@
+- name: Restart traefik
+  service:
+    name: docker-traefik
+    state: restarted
+  listen: restart traefik

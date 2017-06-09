@@ -3,15 +3,15 @@
   become: yes
   become_method: sudo
   roles:
-  - role: docker
+    - role: docker
 
 - hosts: manager
   remote_user: "admin"
   become: yes
   become_method: sudo
-  become_user: docker
   roles:
     - role: swarm-master
+    - role: traefik
 
 - hosts: nodes
   remote_user: "admin"

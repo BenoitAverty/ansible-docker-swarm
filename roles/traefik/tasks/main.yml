@@ -1,0 +1,25 @@
+- name: Traefik configuration
+  copy:
+    src: traefik.toml
+    dest: /etc/traefik.toml
+  notify: restart traefik
+
+- name: Traefik network
+  command: docker network create --driver overlay traefik-network
+  register: network_cmd
+  failed_when: network_cmd.rc > 1
+  changed_when: network_cmd.rc == 0
+
+- name: Traefik service
+  command: >
+    docker service create
+    --name traefik
+    --constraint=node.role==manager
+    --publish 80:80 --publish 8080:8080
+    --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock
+    --mount type=bind,source=/etc/traefik.toml,target=/etc/traefik/traefik.toml
+    --network traefik-network
+    traefik
+  register: traefik_cmd
+  failed_when: traefik_cmd.rc > 1
+  changed_when: traefik_cmd.rc == 0

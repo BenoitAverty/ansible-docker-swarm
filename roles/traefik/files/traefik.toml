@@ -1,0 +1,11 @@
+logLevel = "DEBUG"
+
+[web]
+address = ":8080"
+ReadOnly = true
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+swarmmode = true
+watch = true
+domain = "<redacted>"

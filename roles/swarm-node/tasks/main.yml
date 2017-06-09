@@ -2,6 +2,7 @@
   shell: >
     docker info | egrep '^Swarm: ' | cut -d ' ' -f2
   register: swarm_status
+  changed_when: false
 
 - name: Cluster join
   command: "docker swarm join --advertise-addr {{ansible_default_ipv4.address}} --token {{hostvars[groups['manager'][0]].swarmtoken}} {{hostvars[groups['manager'][0]].inventory_hostname}}:2377"
