@@ -12,6 +12,7 @@
   roles:
     - role: swarm-master
     - role: traefik
+    - role: portainer
 
 - hosts: nodes
   remote_user: "admin"

@@ -1,0 +1,14 @@
+- name: Portainer service
+  command: >
+    docker service create
+    --name portainer
+    --label "traefik.port=9000"
+    --label "traefik.frontend.rule=Host:<redacted>"
+    --constraint 'node.role == manager'
+    --network traefik-network
+    --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock
+    portainer/portainer
+    -H unix:///var/run/docker.sock
+  register: portainer_cmd
+  failed_when: portainer_cmd.rc > 1
+  changed_when: portainer_cmd.rc == 0
