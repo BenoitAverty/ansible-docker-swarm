@@ -15,6 +15,11 @@
     dest: /etc/docker/daemon.json
   notify: restart docker
 
+- name: Docker keys
+  copy:
+    src: certs/
+    dest: /etc/docker/certs/
+
 - name: Docker service unit
   copy:
     src: docker.service.d/
