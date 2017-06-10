@@ -1,12 +1,12 @@
 - name: Restart traefik
-  command: >
+  shell: >
     docker service rm traefik &&
     docker service create
     --name traefik
     --constraint=node.role==manager
-    --publish 80:80 --publish 8080:8080
+    --publish 80:80 --publish 443:443 --publish 8080:8080
     --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock
-    --mount type=bind,source=/etc/traefik.toml,target=/etc/traefik/traefik.toml
+    --mount type=bind,source=/etc/traefik,target=/etc/traefik
     --network traefik-network
     traefik
   listen: restart traefik
