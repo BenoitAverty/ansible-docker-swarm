@@ -2,6 +2,8 @@
   remote_user: "admin"
   become: yes
   become_method: sudo
+  vars_files:
+    - vars.yml
   roles:
     - role: docker
 
@@ -9,6 +11,8 @@
   remote_user: "admin"
   become: yes
   become_method: sudo
+  vars_files:
+    - vars.yml
   roles:
     - role: swarm-master
     - role: traefik
@@ -18,5 +22,7 @@
   remote_user: "admin"
   become: yes
   become_method: sudo
+  vars_files:
+    - vars.yml
   roles:
     - role: swarm-node

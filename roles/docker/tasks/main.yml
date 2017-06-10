@@ -9,8 +9,21 @@
     group: docker
     state: present
 
-- name: Docker service
-  service:
+- name: Docker configuration
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+  notify: restart docker
+
+- name: Docker service unit
+  copy:
+    src: docker.service.d/
+    dest: /etc/systemd/system/docker.service.d/
+  notify: restart docker
+
+- name: Docker service start
+  systemd:
+    daemon-reload: true
     name: docker
     state: started
     enabled: yes

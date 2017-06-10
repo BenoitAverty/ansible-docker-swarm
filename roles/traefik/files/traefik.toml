@@ -8,4 +8,4 @@ ReadOnly = true
 endpoint = "unix:///var/run/docker.sock"
 swarmmode = true
 watch = true
-domain = "<redacted>"
+domain = "{{ docker_url }}"
