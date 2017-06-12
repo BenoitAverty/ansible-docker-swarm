@@ -1,0 +1,29 @@
+- name: Packages upload
+  copy:
+    src: "{{ item }}"
+    dest: /root/{{ item }}
+  with_items:
+    - linux-with-userns-4.11.3-1-x86_64.pkg.tar.xz
+    - linux-with-userns-docs-4.11.3-1-x86_64.pkg.tar.xz
+    - linux-with-userns-headers-4.11.3-1-x86_64.pkg.tar.xz
+
+- name: Packages installation
+  command: "pacman -U --noconfirm {{ item }}"
+  args:
+    chdir: /tmp
+    creates: /boot/initramfs-linux-with-userns.img
+  with_items:
+    - linux-with-userns-headers-4.11.3-1-x86_64.pkg.tar.xz
+    - linux-with-userns-4.11.3-1-x86_64.pkg.tar.xz
+  notify:
+    - reboot server
+
+- name: Old kernel removing
+  pacman:
+    name: linux
+    state: absent
+  notify:
+    - reboot server
+
+- name: Grub configuration
+  command: grub-mkconfig -o /boot/grub/grub.cfg

@@ -1,0 +1,14 @@
+- name: Reboot server
+  listen: reboot server
+  shell: sleep 2 && /sbin/shutdown -r now "Kernel updated"
+  async: 1
+  poll: 0
+
+
+- name: wait for server to come back
+  listen: reboot server
+  local_action: wait_for
+  args:
+    host: "{{ inventory_hostname }}"
+    port: 22
+    state: started

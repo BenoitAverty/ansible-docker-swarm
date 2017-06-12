@@ -5,6 +5,7 @@
   vars_files:
     - vars.yml
   roles:
+    - role: custom-kernel
     - role: docker
 
 - hosts: manager
