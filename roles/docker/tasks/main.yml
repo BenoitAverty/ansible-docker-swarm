@@ -9,6 +9,11 @@
     group: docker
     state: present
 
+- name: Docker configuration folder
+  file:
+    path: /etc/docker
+    state: directory
+
 - name: Docker configuration
   template:
     src: daemon.json.j2

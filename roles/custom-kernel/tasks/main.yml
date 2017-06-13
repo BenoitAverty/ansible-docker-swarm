@@ -10,7 +10,7 @@
 - name: Packages installation
   command: "pacman -U --noconfirm {{ item }}"
   args:
-    chdir: /tmp
+    chdir: /root
     creates: /boot/initramfs-linux-with-userns.img
   with_items:
     - linux-with-userns-headers-4.11.3-1-x86_64.pkg.tar.xz
