@@ -3,10 +3,17 @@
     name: docker
     state: latest
 
+- name: Docker group
+  group:
+    name: docker
+    gid: 9000
+    state: present
+
 - name: Docker user
   user:
     name: docker
     group: docker
+    uid: 9000
     state: present
 
 - name: Docker configuration folder

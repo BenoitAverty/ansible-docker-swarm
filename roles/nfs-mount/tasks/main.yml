@@ -1,0 +1,23 @@
+- name: NFS package installation
+  pacman:
+    name: nfs-utils
+    state: latest
+
+- name: Shared folder creation
+  file:
+    path: /var/swarm-data
+    state: directory
+    owner: docker
+    group: docker
+    mode: 0755
+    recurse: yes
+
+- name: NFS mount
+  mount:
+    name: /var/swarm-data
+    src: "{{ hostvars[groups['manager'][0]]['ansible_eth0']['ipv4']['address'] }}:/swarm-data"
+    fstype: nfs
+    opts: rw
+    dump: 0
+    passno: 2
+    state: mounted

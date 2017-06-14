@@ -12,6 +12,7 @@
   vars_files:
     - vars.yml
   roles:
+    - role: nfs-server
     - role: swarm-master
     - role: traefik
     - role: portainer
@@ -21,4 +22,5 @@
   vars_files:
     - vars.yml
   roles:
+    - role: nfs-mount
     - role: swarm-node

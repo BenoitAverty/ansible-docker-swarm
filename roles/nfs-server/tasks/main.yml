@@ -1,0 +1,38 @@
+- name: NFS package installation
+  pacman:
+    name: nfs-utils
+    state: latest
+
+- name: Shared folder creation
+  file:
+    path: /var/swarm-data
+    state: directory
+    owner: docker
+    group: docker
+    mode: 0755
+    recurse: yes
+
+- name: NFS root folder creation
+  file:
+    path: /srv/nfs/swarm-data
+    state: directory
+
+- name: Mount shared folder into NFS root
+  mount:
+    path: /srv/nfs/swarm-data
+    src: /var/swarm-data
+    state: mounted
+    fstype: none
+    opts: "bind,rw"
+
+- name: NFS configuration
+  template:
+    src: exports.j2
+    dest: /etc/exports
+  notify: restart nfs
+
+- name: NFS service
+  systemd:
+    name: nfs-server
+    state: started
+    enabled: true
