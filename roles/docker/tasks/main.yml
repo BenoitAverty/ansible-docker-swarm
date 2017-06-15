@@ -3,6 +3,11 @@
     name: docker
     state: latest
 
+- name: Docker compose installation
+  pacman:
+    name: docker-compose
+    state: latest
+
 - name: Docker group
   group:
     name: docker

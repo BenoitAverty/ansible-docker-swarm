@@ -10,7 +10,7 @@
   notify: restart traefik
 
 - name: Traefik network
-  command: docker network create --driver overlay traefik-network
+  command: docker network create --driver overlay --attachable traefik-network
   register: network_cmd
   failed_when: network_cmd.rc > 1
   changed_when: network_cmd.rc == 0
@@ -28,3 +28,16 @@
   register: traefik_cmd
   failed_when: traefik_cmd.rc > 1
   changed_when: traefik_cmd.rc == 0
+
+- name: Whoami service
+  command: >
+    docker service create
+    --name whoami
+    --mode global
+    --label "traefik.port=80"
+    --label "traefik.frontend.rule=Host:whoami.docker.ab0.fr"
+    --network traefik-network
+    emilevauge/whoami
+  register: whoami_cmd
+  failed_when: whoami_cmd.rc > 1
+  changed_when: whoami_cmd.rc == 0
