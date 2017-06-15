@@ -5,16 +5,13 @@
 
 - name: Shared folder creation
   file:
-    path: /var/swarm-data
+    path: /var/download-data
     state: directory
-    owner: docker
-    group: docker
-    mode: 0755
 
 - name: NFS mount
   mount:
-    name: /var/swarm-data
-    src: "{{ hostvars[groups['manager'][0]]['ansible_eth0']['ipv4']['address'] }}:/swarm-data"
+    name: /var/download-data
+    src: "{{ download_nfs_host }}:/download-data"
     fstype: nfs
     opts: rw
     dump: 0

@@ -6,6 +6,7 @@
     - role: common
     - role: custom-kernel
     - role: docker
+    - role: download-nfs-mount
 
 - hosts: manager
   remote_user: "root"
