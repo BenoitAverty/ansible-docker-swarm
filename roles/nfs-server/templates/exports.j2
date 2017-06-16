@@ -1,3 +1,3 @@
-/srv/nfs{% for ip in hostvars.values() | map(attribute='ansible_default_ipv4.address') %} {{ ip }}(rw,fsid=root,no_subtree_check){% endfor %}
+/srv/nfs{% for ip in hostvars.values() | map(attribute='ansible_default_ipv4.address') %} {{ ip }}(rw,fsid=root,no_subtree_check,no_root_squash){% endfor %}
 
-/srv/nfs/swarm-data{% for ip in hostvars.values() | map(attribute='ansible_default_ipv4.address') %} {{ ip }}(rw,no_subtree_check,nohide){% endfor %}
+/srv/nfs/swarm-data{% for ip in hostvars.values() | map(attribute='ansible_default_ipv4.address') %} {{ ip }}(rw,no_subtree_check,nohide,no_root_squash){% endfor %}
