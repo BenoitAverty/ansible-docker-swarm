@@ -16,7 +16,7 @@
     name: /var/swarm-data
     src: "{{ hostvars[groups['manager'][0]]['ansible_eth0']['ipv4']['address'] }}:/swarm-data"
     fstype: nfs
-    opts: rw
+    opts: rw,intr
     dump: 0
     passno: 2
     state: mounted

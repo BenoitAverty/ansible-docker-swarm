@@ -13,7 +13,7 @@
     name: /var/download-data
     src: "{{ download_nfs_host }}:/download-data"
     fstype: nfs
-    opts: rw
+    opts: rw,intr
     dump: 0
     passno: 2
     state: mounted
